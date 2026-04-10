@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meine Website</title>
+  <meta name="description" content="Eine moderne, kostenlose Starter-Website in einer Datei." />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(255,255,255,0.08);
+      --text: #e5e7eb;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --radius: 18px;
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,0.14), transparent 22%),
+        linear-gradient(180deg, #020617, var(--bg));
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(2, 6, 23, 0.65);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 0;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .menu {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .menu a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .menu a:hover { color: white; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #60a5fa);
+      color: #04111f;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      border-color: var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    h1, h2, h3 { line-height: 1.15; margin: 0 0 1rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 4.4rem); }
+    h2 { font-size: clamp(1.7rem, 3vw, 2.6rem); }
+    p.lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-card, .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 1.3rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    section {
+      padding: 3.5rem 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-head p {
+      max-width: 60ch;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1.3rem;
+    }
+
+    .card h3 {
+      margin-top: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(34,197,94,0.2));
+      border: 1px solid var(--border);
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 1rem;
+    }
+
+    .about-panel {
+      padding: 1.5rem;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .project {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .project .thumb {
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, rgba(56,189,248,0.35), rgba(34,197,94,0.22));
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project .content {
+      padding: 1.2rem;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea { min-height: 140px; resize: vertical; }
+
+    footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about,
+      .grid-3,
+      .portfolio {
+        grid-template-columns: 1fr;
+      }
+      .section-head {
+        display: block;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .menu { display: none; }
+      .stats { grid-template-columns: 1fr; }
+      .hero { padding-top: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#start">DEIN NAME</a>
+      <nav class="menu">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#ueber-mich">Über mich</a>
+        <a href="#projekte">Projekte</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a class="btn btn-secondary" href="#kontakt">Anfragen</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="start">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Moderne Website · kostenlos online stellbar</span>
+          <h1>Ich helfe bei <span style="color: var(--accent);">Websites</span>, Design und einem starken ersten Eindruck.</h1>
+          <p class="lead">
+            Das ist eine fertige Starter-Website für dich. Du kannst sie für ein Portfolio, ein kleines Business, einen Verein oder ein Schulprojekt benutzen.
+          </p>
+          <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="#kontakt">Jetzt starten</a>
+            <a class="btn btn-secondary" href="#projekte">Beispiele ansehen</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <h3>Was du hier ändern kannst</h3>
+          <p style="color: var(--muted); margin-top: 0;">
+            Ersetze einfach deinen Namen, deine Texte, Farben, Bilder und Kontaktdaten. Danach kannst du die Datei direkt bei GitHub Pages, Netlify oder Vercel hochladen.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <strong>1</strong>
+              Datei
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              Kostenlos
+            </div>
+            <div class="stat">
+              <strong>Mobil</strong>
+              Optimiert
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leistungen">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Leistungen</h2>
+            <p>Hier kannst du zeigen, was du anbietest oder worin du gut bist.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Webdesign</h3>
+            <p>Moderne und übersichtliche Seiten, die auf Handy und Laptop gut aussehen.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Texte & Inhalte</h3>
+            <p>Klare Texte, starke Überschriften und ein professioneller Aufbau.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Support</h3>
+            <p>Schnelle Anpassungen, neue Bereiche und Hilfe beim Veröffentlichen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ueber-mich">
+      <div class="container about">
+        <div class="card about-panel">
+          <h2>Über mich</h2>
+          <p>
+            Schreib hier kurz, wer du bist, was du machst und warum man mit dir arbeiten sollte.
+            Beispiel: „Ich bin Max und ich erstelle einfache, moderne Websites für kleine Unternehmen und kreative Projekte.“
+          </p>
+        </div>
+        <div class="card about-panel">
+          <h3>Warum diese Website gut ist</h3>
+          <p>Sie lädt schnell, sieht modern aus und ist leicht anpassbar. Du brauchst kein kompliziertes System, um online zu gehen.</p>
+          <p>Für den Anfang reicht diese eine HTML-Datei völlig aus.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projekte">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Projekte oder Beispiele</h2>
+            <p>Hier kannst du eigene Arbeiten, Produkte oder Ideen vorstellen.</p>
+          </div>
+        </div>
+        <div class="portfolio">
+          <article class="card project">
+            <div class="thumb"></div>
+            <div class="content">
+              <h3>Projekt Eins</h3>
+              <p>Kurze Beschreibung von einem Projekt oder Angebot.</p>
+            </div>
+          </article>
+          <article class="card project">
+            <div class="thumb"></div>
+            <div class="content">
+              <h3>Projekt Zwei</h3>
+              <p>Kurze Beschreibung von einem Projekt oder Angebot.</p>
+            </div>
+          </article>
+          <article class="card project">
+            <div class="thumb"></div>
+            <div class="content">
+              <h3>Projekt Drei</h3>
+              <p>Kurze Beschreibung von einem Projekt oder Angebot.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="card cta">
+          <h2>Bereit für deine eigene Website?</h2>
+          <p style="color: var(--muted); max-width: 52ch; margin: 0 auto 1.2rem;">
+            Du kannst diese Vorlage direkt benutzen und nur die Texte anpassen. Danach einfach kostenlos online stellen.
+          </p>
+          <a class="btn btn-primary" href="#kontakt">Kontaktbereich öffnen</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="container about">
+        <div class="card about-panel">
+          <h2>Kontakt</h2>
+          <p>Trag hier deine echte E-Mail, dein Instagram oder andere Kontaktdaten ein.</p>
+          <p><strong>E-Mail:</strong> deine-email@example.com<br>
+             <strong>Instagram:</strong> @deinname<br>
+             <strong>Ort:</strong> Deine Stadt</p>
+        </div>
+        <div class="card about-panel">
+          <h3>Nachricht senden</h3>
+          <form onsubmit="event.preventDefault(); document.getElementById('msg').textContent='Danke! Das Formular ist nur ein Beispiel. Für echte Nachrichten brauchst du z. B. Formspree oder Netlify Forms.';">
+            <input type="text" placeholder="Dein Name" required>
+            <input type="email" placeholder="Deine E-Mail" required>
+            <textarea placeholder="Deine Nachricht"></textarea>
+            <button class="btn btn-primary" type="submit">Absenden</button>
+            <p id="msg" style="margin:0; color: var(--muted);"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 DEIN NAME</div>
+      <div>Gemacht als einfache Starter-Website</div>
+    </div>
+  </footer>
+</body>
+</html>
