@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yannis — Premium Website</title>
+  <meta name="description" content="Eine hochwertige, moderne Premium-Website im cleanen Stil." />
+  <style>
+    :root {
+      --bg: #05070b;
+      --bg-soft: #0b0f17;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.1);
+      --text: #f5f7fb;
+      --muted: #a7afbf;
+      --line: rgba(255,255,255,0.12);
+      --accent: #9fc3ff;
+      --accent-2: #d7e5ff;
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --radius: 26px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(130,170,255,0.18), transparent 30%),
+        radial-gradient(circle at 85% 10%, rgba(255,255,255,0.10), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(90,110,255,0.14), transparent 35%),
+        linear-gradient(180deg, #090d15 0%, #05070b 40%, #040508 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(5,7,11,0.58);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+
+    .brand {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #f8fbff 0%, #dfe9ff 100%);
+      color: #08101d;
+      box-shadow: 0 10px 30px rgba(180,210,255,0.22);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      position: relative;
+      padding: 72px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+      min-height: calc(100vh - 140px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--accent-2);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+      backdrop-filter: blur(18px);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      font-weight: 800;
+    }
+
+    .gradient-text {
+      background: linear-gradient(180deg, #ffffff 0%, #d8e6ff 44%, #90b4ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      max-width: 660px;
+      font-size: clamp(1.05rem, 1.6vw, 1.24rem);
+      line-height: 1.75;
+      color: var(--muted);
+      margin: 0 0 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 18px;
+      backdrop-filter: blur(14px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      letter-spacing: -0.04em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .device {
+      position: relative;
+      padding: 18px;
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.13);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .device-screen {
+      overflow: hidden;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #0d1424, #090d18 58%, #070a12 100%);
+      min-height: 720px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .orb {
+      position: absolute;
+      filter: blur(60px);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .orb.one { width: 220px; height: 220px; background: #5f87ff; top: -20px; right: -30px; }
+    .orb.two { width: 180px; height: 180px; background: #ffffff; bottom: 80px; left: -50px; opacity: 0.16; }
+
+    .screen-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px 10px;
+      color: #d9e6ff;
+      font-size: 0.95rem;
+    }
+
+    .screen-content {
+      padding: 14px 22px 24px;
+    }
+
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .hero-panel {
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .tiny { font-size: 0.85rem; color: #c1d2f4; }
+    .panel-title { font-size: 1.6rem; margin: 8px 0 6px; letter-spacing: -0.04em; }
+    .panel-sub { color: var(--muted); line-height: 1.65; }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .mini {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mini strong { display:block; font-size: 1.15rem; margin-bottom: 6px; }
+    .mini p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 0.94rem; }
+
+    section { padding: 64px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-head .label {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin: 0 0 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1.04rem;
+      margin: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      min-height: 230px;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.32rem;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+    }
+
+    .showcase-large, .showcase-stack > div {
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      overflow: hidden;
+    }
+
+    .showcase-large { min-height: 530px; padding: 34px; }
+    .showcase-stack { display: grid; gap: 18px; }
+    .showcase-stack > div { min-height: 256px; padding: 28px; }
+
+    .big-ui {
+      margin-top: 22px;
+      border-radius: 26px;
+      padding: 22px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .task-row, .calendar-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .task-row:last-child, .calendar-row:last-child { border-bottom: 0; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(159,195,255,0.14);
+      border: 1px solid rgba(159,195,255,0.18);
+      color: #dbe8ff;
+      font-size: 0.88rem;
+    }
+
+    .pricing {
+      padding: 34px;
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+    }
+
+    .pricing h3 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.05em;
+      margin: 0 0 10px;
+    }
+
+    .pricing p { color: var(--muted); line-height: 1.75; max-width: 700px; margin: 0 auto 24px; }
+
+    .footer {
+      padding: 24px 0 56px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 22px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .showcase,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .device-screen { min-height: 620px; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner { min-height: 66px; }
+      .nav-links { display: none; }
+      h1 { font-size: clamp(2.6rem, 14vw, 4.4rem); }
+      .stats,
+      .mini-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 34px; }
+      .hero-grid { min-height: auto; }
+      section { padding: 42px 0; }
+      .showcase-large,
+      .showcase-stack > div,
+      .feature-card,
+      .pricing,
+      .hero-panel { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand">Yannis</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#experience">Erlebnis</a>
+        <a href="#design">Design</a>
+        <a href="#contact">Kontakt</a>
+      </div>
+      <a href="#contact" class="btn btn-secondary">Projekt starten</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="reveal visible">
+        <div class="eyebrow">Premium Design · High-End Eindruck · Modern Web Experience</div>
+        <h1>
+          Eine Website,<br>
+          die sich <span class="gradient-text">groß</span><br>
+          anfühlt.
+        </h1>
+        <p class="lead">
+          Diese Version ist bewusst maximal clean, edel und hochwertig aufgebaut. Große Typografie, viel Tiefe,
+          glasartige Flächen und ein starker Fokus auf Wirkung, Ruhe und Qualität.
+        </p>
+        <div class="hero-actions">
+          <a href="#design" class="btn btn-primary">Design ansehen</a>
+          <a href="#features" class="btn btn-secondary">Mehr entdecken</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <strong>01</strong>
+            <span>Premium Hero mit starkem ersten Eindruck</span>
+          </div>
+          <div class="stat">
+            <strong>02</strong>
+            <span>Responsive auf Handy, Tablet und Laptop</span>
+          </div>
+          <div class="stat">
+            <strong>03</strong>
+            <span>In einer Datei, leicht auf GitHub hochladbar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="device reveal">
+        <div class="device-screen">
+          <div class="orb one"></div>
+          <div class="orb two"></div>
+          <div class="screen-top">
+            <span>Premium Interface</span>
+            <span>Live Preview</span>
+          </div>
+          <div class="screen-content">
+            <div class="glass-card hero-panel">
+              <div class="tiny">Visual Identity</div>
+              <div class="panel-title">Elegant. Ruhig. Sehr hochwertig.</div>
+              <div class="panel-sub">Ein Stil, der modern wirkt und sofort nach professionellem Produkt aussieht.</div>
+              <div class="mini-grid">
+                <div class="mini">
+                  <strong>Klare Struktur</strong>
+                  <p>Viel Weißraum, saubere Abstände und fokussierte Inhalte.</p>
+                </div>
+                <div class="mini">
+                  <strong>Glas-Look</strong>
+                  <p>Transparente Layer erzeugen Tiefe und ein luxuriöses Gefühl.</p>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card hero-panel">
+              <div class="tiny">Experience Layer</div>
+              <div class="panel-title">Für Portfolio, Brand oder Business.</div>
+              <div class="panel-sub">Du kannst diese Website leicht für deine Marke, deine Person oder ein Projekt anpassen.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="label">Features</div>
+        <h2>Gebaut für einen hochwertigen Auftritt.</h2>
+        <p>
+          Alles ist darauf ausgelegt, professionell und teuer auszusehen: starke Hierarchie, ruhige Farben,
+          tiefe Panels, klare Texte und ein Aufbau, der Vertrauen schafft.
+        </p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <div class="icon">✦</div>
+          <h3>Starker erster Eindruck</h3>
+          <p>Große Headline, satter Kontrast und hochwertige Flächen sorgen dafür, dass die Seite sofort ernst und modern wirkt.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="icon">◌</div>
+          <h3>Premium Motion Feeling</h3>
+          <p>Sanfte Einblendungen und ein ruhiger Scroll-Fluss geben der Website ein hochwertiges, fast app-artiges Erlebnis.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="icon">▣</div>
+          <h3>Einfach zu bearbeiten</h3>
+          <p>Alles liegt in einer HTML-Datei. Texte, Farben und Bereiche kannst du später schnell anpassen.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="label">Erlebnis</div>
+        <h2>Wie eine Produktseite von einer großen Marke.</h2>
+        <p>
+          Der Look arbeitet mit Tiefe, Fokus und Rhythmus. Große Flächen wechseln sich mit kleinen Informationselementen ab,
+          damit die Seite nicht nur schön, sondern auch glaubwürdig wirkt.
+        </p>
+      </div>
+
+      <div class="showcase">
+        <div class="showcase-large reveal">
+          <div class="tiny">Dashboard Section</div>
+          <h3 style="font-size:2.2rem;letter-spacing:-0.05em;margin:8px 0 10px;">Fokus auf Klarheit und Kontrolle.</h3>
+          <p style="color:var(--muted);line-height:1.75;max-width:560px;">Perfekt für Projekte, Personal Branding, kreative Studios oder hochwertige Services.</p>
+          <div class="big-ui">
+            <div class="task-row"><span>Strategie & Markenbild</span><span class="badge">Bereit</span></div>
+            <div class="task-row"><span>Premium Showcase</span><span class="badge">Live</span></div>
+            <div class="task-row"><span>Kontakt & Conversion</span><span class="badge">Integriert</span></div>
+            <div class="task-row"><span>Responsive Experience</span><span class="badge">Optimiert</span></div>
+          </div>
+        </div>
+        <div class="showcase-stack">
+          <div class="reveal">
+            <div class="tiny">Messaging</div>
+            <h3 style="font-size:1.7rem;letter-spacing:-0.04em;margin:10px 0;">Weniger Chaos, mehr Wirkung.</h3>
+            <p style="margin:0;color:var(--muted);line-height:1.7;">Nicht überladen. Nicht billig. Sondern klar, reduziert und selbstbewusst.</p>
+          </div>
+          <div class="reveal">
+            <div class="tiny">Structure</div>
+            <h3 style="font-size:1.7rem;letter-spacing:-0.04em;margin:10px 0;">Alles führt sauber zur Handlung.</h3>
+            <div class="big-ui" style="margin-top:14px;">
+              <div class="calendar-row"><span>Hero & Story</span><span>01</span></div>
+              <div class="calendar-row"><span>Leistung & Differenzierung</span><span>02</span></div>
+              <div class="calendar-row"><span>Kontakt & Abschluss</span><span>03</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="design">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="label">Design</div>
+        <h2>Luxuriös, digital und absolut modern.</h2>
+        <p>
+          Diese Seite ist absichtlich so gestaltet, dass sie teuer wirkt: dunkle Bühne, weiche Lichter, Glasflächen,
+          präzise Typografie und starke Kontraste. Das lässt sich später leicht für dein eigenes Thema umbauen.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <div class="icon">A</div>
+          <h3>Edle Typografie</h3>
+          <p>Große, präzise Überschriften geben der Seite ein selbstbewusstes, hochwertiges Erscheinungsbild.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="icon">◎</div>
+          <h3>Visuelle Tiefe</h3>
+          <p>Verläufe, Schatten und Glas-Ebenen erzeugen Raum und lassen die Oberfläche lebendig wirken.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="icon">↗</div>
+          <h3>Starke Conversion</h3>
+          <p>Buttons, Texte und Sektionen sind so aufgebaut, dass Besucher schnell verstehen, worum es geht.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="pricing reveal">
+        <div class="label" style="margin-bottom:14px;color:var(--accent-2);text-transform:uppercase;letter-spacing:0.14em;font-size:0.8rem;">Kontakt</div>
+        <h3>Bereit für deine echte Version.</h3>
+        <p>
+          Ersetze jetzt nur noch Namen, Texte, Bilder und Kontaktinfos. Danach lädst du die Datei als <strong>index.html</strong>
+          auf GitHub hoch und deine Seite ist online.
+        </p>
+        <div class="hero-actions" style="justify-content:center; margin-bottom:0;">
+          <a class="btn btn-primary" href="mailto:deine-email@example.com">deine-email@example.com</a>
+          <a class="btn btn-secondary" href="tel:+491234567890">+49 123 4567890</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>© 2026 Yannis. Premium Web Experience.</div>
+      <div>Gebaut für GitHub Pages.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (!el.classList.contains('visible')) observer.observe(el);
+    });
+  </script>
+</body>
+</html>
